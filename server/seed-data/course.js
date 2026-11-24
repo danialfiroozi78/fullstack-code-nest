@@ -1,4 +1,4 @@
-export const courses = [
+const courses = [
   {
     slug: "complete-web-development",
     title: "آموزش جامع توسعه وب از صفر تا ساخت پروژه واقعی",
@@ -414,3 +414,5 @@ export const courses = [
     publishedAt: "2026-11-22T00:00:00.000Z",
   },
 ];
+
+module.exports = { courses };
