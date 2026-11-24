@@ -313,7 +313,7 @@ export default function PanelDashboardPage() {
 
             {/* Footer */}
             {recentOrders.length > 0 && (
-              <Link href="/profile/orders" className="mt-5 block">
+              <Link href="/panel/orders" className="mt-5 block">
                 <Button fullWidth variant="outline">
                   مشاهده همه سفارش‌ها
                   <ArrowLeft className="size-4" />
