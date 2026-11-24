@@ -31,7 +31,7 @@ app.use(
 );
 
 app.use(
-  "/uploads",
+  ["/uploads", "/public/uploads"],
   express.static(path.join(process.cwd(), "public", "uploads")),
 );
 app.use(express.json());
