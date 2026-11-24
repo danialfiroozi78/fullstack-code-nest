@@ -123,7 +123,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-7 text-center text-xs text-slate-400 md:flex-row">
-          <p>© {new Date().getFullYear()} CodeNest. تمامی حقوق محفوظ است.</p>
+          <p>© 2025 CodeNest. تمامی حقوق محفوظ است.</p>
 
           <p>ساخته شده با عشق به برنامه‌نویسی</p>
         </div>
