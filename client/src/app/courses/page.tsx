@@ -1,7 +1,6 @@
 import { BookOpen, Code2, GraduationCap } from "lucide-react";
 import CoursesCatalog from "@/components/courses/CoursesCatalog";
 import HeroSection from "@/components/courses/HeroSection";
-import type { Metadata } from "next";
 
 type PageProps = {
   searchParams: Promise<{
@@ -9,12 +8,6 @@ type PageProps = {
     search?: string;
     sort?: string;
   }>;
-};
-
-export const metadata: Metadata = {
-  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
-  description:
-    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
 };
 
 export default async function CoursesPage({ searchParams }: PageProps) {

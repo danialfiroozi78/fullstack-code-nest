@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -12,25 +11,9 @@ import {
 } from "lucide-react";
 import { getRoadmapBySlug } from "@/services/roadmap.service";
 
-export const metadata: Metadata = {
-  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
-  description:
-    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
-};
-
 type Props = {
   params: Promise<{ slug: string }>;
 };
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const getRoadmapStep = await getRoadmapBySlug(slug);
-
-  return {
-    title: getRoadmapStep?.data?.title,
-    description: getRoadmapStep?.data?.description,
-  };
-}
 
 export default async function RoadmapDetailPage({ params }: Props) {
   const { slug } = await params;

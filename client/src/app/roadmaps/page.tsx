@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -16,11 +15,6 @@ import {
 import { getRoadmaps } from "@/services/roadmap.service";
 import RoadmapHeroSection from "@/components/roadmap";
 
-export const metadata: Metadata = {
-  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
-  description:
-    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
-};
 const icons = {
   monitor: Monitor,
   server: Server,

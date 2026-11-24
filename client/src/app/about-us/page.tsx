@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -14,12 +13,6 @@ import {
   Users,
 } from "lucide-react";
 import AboutUsHeroSection from "@/components/aboutUs/AboutUsHeroSection";
-
-export const metadata: Metadata = {
-  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
-  description:
-    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
-};
 
 const values = [
   {
