@@ -48,7 +48,6 @@ next-env.d.ts
 
 # Uploaded files
 .idea
-server/public/uploads/
 node_modules
 server/node_modules
 client/node_modules
