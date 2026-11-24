@@ -4,7 +4,6 @@ import {
   getCourseService,
   getNewestCourseService,
 } from "./course.service";
-import { async } from "rxjs";
 
 export const getCourseController = async (req: Request, res: Response) => {
   const { query } = req;

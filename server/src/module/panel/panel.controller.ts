@@ -5,7 +5,6 @@ import {
   getMyOrdersService,
   getProfileService,
 } from "./panel.service";
-import { async } from "rxjs";
 
 export const getProfileController = async (
   req: Request & {

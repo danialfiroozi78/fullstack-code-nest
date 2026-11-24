@@ -4,7 +4,6 @@ import { CourseModel } from "../course/course.model";
 import { InstructorModel } from "../instructor/instructor.model";
 import { CategoryModel } from "../category/category.model";
 import createHttpError from "http-errors";
-import { async } from "rxjs";
 
 type CartWithItems = {
   id: number;

@@ -18,7 +18,6 @@ import {
   setAuthCookie,
   setRegistrationCookie,
 } from "../../utils/auth-cookie";
-import { async } from "rxjs";
 
 const isProduction = process.env.NODE_ENV === "production";
 
