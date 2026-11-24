@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+    /* Brand */
+    --color-primary: #e11d48;
+    --color-primary-hover: #be123c;
+    --color-primary-active: #9f1239;
+    --color-accent: #fb7185;
+
+    /* Backgrounds */
+    --color-body: #f8fafc;
+    --color-header: #ffffff;
+    --color-footer: #18181b;
+    --color-card: #ffffff;
+    --color-card-hover: #fafafa;
+    --color-box: #fff1f2;
+    --color-box-hover: #ffe4e6;
+
+    /* Borders */
+    --color-border: #e4e4e7;
+    --color-border-strong: #d4d4d8;
+
+    /* Typography */
+    --color-text-primary: #18181b;
+    --color-text-secondary: #52525b;
+    --color-text-muted: #a1a1aa;
+
+    /* Status */
+    --color-success: #059669;
+    --color-warning: #d97706;
+    --color-danger: #dc2626;
+}
+
+/* Light - 300 */
+@font-face {
+    font-family: "Yekan Bakh";
+    src: url("/font/Yekan Bakh FaNum 03 Light.eot");
+    src: url("/font/Yekan Bakh FaNum 03 Light.eot?#iefix") format("embedded-opentype"),
+    url("/font/Yekan Bakh FaNum 03 Light.woff") format("woff"),
+    url("/font/Yekan Bakh FaNum 03 Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Regular - 400 */
+@font-face {
+    font-family: "Yekan Bakh";
+    src: url("/font/Yekan Bakh FaNum 04 Regular.eot");
+    src: url("/font/Yekan Bakh FaNum 04 Regular.eot?#iefix") format("embedded-opentype"),
+    url("/font/Yekan Bakh FaNum 04 Regular.woff") format("woff"),
+    url("/font/Yekan Bakh FaNum 04 Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Medium - 500 */
+@font-face {
+    font-family: "Yekan Bakh";
+    src: url("/font/Yekan Bakh FaNum 05 Medium.eot");
+    src: url("/font/Yekan Bakh FaNum 05 Medium.eot?#iefix") format("embedded-opentype"),
+    url("/font/Yekan Bakh FaNum 05 Medium.woff") format("woff"),
+    url("/font/Yekan Bakh FaNum 05 Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Bold - 700 */
+@font-face {
+    font-family: "Yekan Bakh";
+    src: url("/font/Yekan Bakh FaNum 06 Bold.eot");
+    src: url("/font/Yekan Bakh FaNum 06 Bold.eot?#iefix") format("embedded-opentype"),
+    url("/font/Yekan Bakh FaNum 06 Bold.woff") format("woff"),
+    url("/font/Yekan Bakh FaNum 06 Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Heavy - 800 */
+@font-face {
+    font-family: "Yekan Bakh";
+    src: url("/font/Yekan Bakh FaNum 07 Heavy.eot");
+    src: url("/font/Yekan Bakh FaNum 07 Heavy.eot?#iefix") format("embedded-opentype"),
+    url("/font/Yekan Bakh FaNum 07 Heavy.woff") format("woff"),
+    url("/font/Yekan Bakh FaNum 07 Heavy.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Fat - 900 */
+@font-face {
+    font-family: "Yekan Bakh";
+    src: url("/font/Yekan Bakh FaNum 08 Fat.eot");
+    src: url("/font/Yekan Bakh FaNum 08 Fat.eot?#iefix") format("embedded-opentype"),
+    url("/font/Yekan Bakh FaNum 08 Fat.woff") format("woff"),
+    url("/font/Yekan Bakh FaNum 08 Fat.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@utility container {
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 1100px;
+}
+
+body {
+    background: var(--color-body);
+    color: var(--color-text-primary);
+    direction: rtl !important;
+    text-align: right !important;
+    font-family: "Yekan Bakh" !important;
+}
+
+@keyframes toast-progress {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+@theme {
+    --animate-loading-progress: loading-progress 1.6s ease-in-out infinite;
+
+    @keyframes loading-progress {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(350%);
+        }
+    }
+}
+
+@keyframes successPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,75 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { Menu, X, ShoppingCart, UserRound } from "lucide-react";
+import { Button } from "@/components/common/Button";
+
+type NavLink = {
+  title: string;
+  href: string;
+};
+
+export default function MobileMenu({ links }: { links: NavLink[] }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="lg:hidden">
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-label={open ? "بستن منو" : "باز کردن منو"}
+        aria-expanded={open}
+        aria-controls="mobile-menu"
+        className="flex size-10 items-center justify-center rounded-xl border border-border bg-white text-text-primary"
+      >
+        {open ? <X size={22} /> : <Menu size={22} />}
+      </button>
+
+      {open && (
+        <nav
+          id="mobile-menu"
+          className="absolute inset-x-0 top-full border-b border-border bg-white p-5 shadow-xl"
+        >
+          <div className="mx-auto flex max-w-7xl flex-col gap-1">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-4 py-3 text-sm font-medium text-text-secondary hover:bg-box hover:text-primary"
+              >
+                {link.title}
+              </Link>
+            ))}
+
+            <div className="my-3 h-px bg-border" />
+
+            {/*<Link*/}
+            {/*  href="/search"*/}
+            {/*  onClick={() => setOpen(false)}*/}
+            {/*  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-text-secondary"*/}
+            {/*>*/}
+            {/*  <Search size={18} />*/}
+            {/*  جستجوی دوره*/}
+            {/*</Link>*/}
+
+            <Link href="/cart" onClick={() => setOpen(false)}>
+              <Button>
+                <ShoppingCart size={18} />
+                سبد خرید
+              </Button>
+            </Link>
+
+            <Link href="/auth" onClick={() => setOpen(false)} className="mt-3">
+              <Button>
+                <UserRound size={18} />
+                ورود / ثبت‌نام
+              </Button>
+            </Link>
+          </div>
+        </nav>
+      )}
+    </div>
+  );
+}
