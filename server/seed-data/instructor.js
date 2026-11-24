@@ -1,4 +1,4 @@
-export const instructors = [
+const instructors = [
   {
     name: "علی محمدی",
     description:
@@ -50,3 +50,5 @@ export const instructors = [
       "مهندس پایگاه داده با بیش از ۷ سال سابقه طراحی و بهینه‌سازی دیتابیس. متخصص PostgreSQL، MySQL، MongoDB، Sequelize و طراحی روابط داده‌ای. دارای تجربه بهینه‌سازی کوئری‌ها و مدیریت دیتابیس‌های پرترافیک.",
   },
 ];
+
+module.exports = { instructors };
