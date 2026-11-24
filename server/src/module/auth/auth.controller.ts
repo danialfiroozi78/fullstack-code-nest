@@ -18,6 +18,9 @@ import {
   setAuthCookie,
   setRegistrationCookie,
 } from "../../utils/auth-cookie";
+import { async } from "rxjs";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 // SEND OTP
 export const sendOtpController = async (
@@ -118,4 +121,20 @@ export const completeRegistrationController = async (
   } catch (error) {
     next(error);
   }
+};
+
+// LOGOUT
+export const logoutController = async (req: Request, res: Response) => {
+  res.clearCookie("access_token", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "lax",
+    path: "/",
+  });
+
+  return res.status(200).json({
+    success: true,
+    statusCode: 200,
+    message: "با موفقیت از حساب کاربری خارج شدید",
+  });
 };

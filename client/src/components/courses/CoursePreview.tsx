@@ -34,7 +34,9 @@ export default function CoursePreview({
 
   const [addCartItemMutation, { isLoading }] = useAddCartItemMutation();
 
-  const { data: cartData } = useGetCartQuery(null);
+  const { data: cartData } = useGetCartQuery(null, {
+    skip: !isAuthorized,
+  });
 
   const hasThisCourse = !!cartData?.data?.cart?.items?.find(
     (item) => item.id === courseDetails.id,

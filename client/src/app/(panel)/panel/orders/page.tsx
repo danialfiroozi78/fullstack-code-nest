@@ -1,41 +1,14 @@
 "use client";
 
-import { PanelOrder, panelOrders, formatNumber } from "@/data/panel";
-import { CheckCircle2, Clock3, ReceiptText, XCircle } from "lucide-react";
-
-const statusConfig = {
-  success: {
-    label: "پرداخت موفق",
-    icon: CheckCircle2,
-    className: "bg-emerald-50 text-success",
-  },
-  pending: {
-    label: "در انتظار پرداخت",
-    icon: Clock3,
-    className: "bg-amber-50 text-warning",
-  },
-  failed: {
-    label: "پرداخت ناموفق",
-    icon: XCircle,
-    className: "bg-red-50 text-danger",
-  },
-};
-
-function OrderStatus({ status }: { status: PanelOrder["status"] }) {
-  const config = statusConfig[status];
-  const Icon = config.icon;
-
-  return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold ${config.className}`}
-    >
-      <Icon size={15} />
-      {config.label}
-    </span>
-  );
-}
+import { BookOpen, CircleCheck, ReceiptText } from "lucide-react";
+import useMyOrders from "@/hooks/useMyOrders";
+import MyOrdersSkeleton from "@/components/panel/loading/MyOrdersSkeleton";
 
 export default function OrdersPage() {
+  const { data, isLoading } = useMyOrders();
+
+  if (isLoading) return <MyOrdersSkeleton count={6} />;
+
   return (
     <div>
       <div className="mb-8">
@@ -53,97 +26,98 @@ export default function OrdersPage() {
         </p>
       </div>
 
-      {/* Desktop Table */}
-      <div className="hidden overflow-hidden rounded-2xl border border-border bg-white md:block">
-        <table className="w-full text-right text-sm">
-          <thead className="bg-zinc-50 text-xs text-text-secondary">
+      <div className="w-full min-w-0 md:overflow-hidden md:rounded-2xl md:border md:border-border md:bg-white">
+        <table className="block w-full text-right text-sm md:table">
+          <thead className="hidden bg-zinc-50 text-xs text-text-secondary md:table-header-group">
             <tr>
               <th className="px-5 py-5 font-semibold">شماره سفارش</th>
+
               <th className="px-5 py-5 font-semibold">دوره‌ها</th>
-              <th className="px-5 py-5 font-semibold">مبلغ</th>
+
+              <th className="px-5 py-5 font-semibold">مبلغ سفارش</th>
+
               <th className="px-5 py-5 font-semibold">وضعیت</th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-border">
-            {panelOrders.map((order) => (
+          <tbody className="flex flex-col gap-4 md:table-row-group md:divide-y md:divide-border">
+            {data?.data?.map((order) => (
               <tr
                 key={order.id}
-                className="transition-colors hover:bg-zinc-50/60"
+                className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] rounded-2xl border border-border bg-white p-4 transition-colors md:table-row md:rounded-none md:border-0 md:p-0 md:hover:bg-zinc-50/60"
               >
-                <td className="px-5 py-6">
-                  <p dir="ltr" className="w-fit font-bold text-text-primary">
-                    {order.id}
-                  </p>
+                <td className="col-start-1 row-start-1 min-w-0 md:px-5 md:py-6">
+                  <div className="flex items-center gap-2">
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-box text-primary">
+                      <ReceiptText size={19} />
+                    </div>
 
-                  <p className="mt-2 text-xs text-text-muted">{order.date}</p>
-                </td>
-
-                <td className="max-w-56 px-5 py-6">
-                  <div className="space-y-1">
-                    {order.courses.map((course) => (
-                      <p
-                        key={course}
-                        className="text-xs leading-6 text-text-secondary"
-                      >
-                        {course}
+                    <div className="min-w-0">
+                      <p className="text-xs font-extrabold text-text-primary sm:text-sm">
+                        <span className="md:hidden">سفارش </span>#{order.id}
                       </p>
-                    ))}
+
+                      <p className="mt-1 text-[11px] text-text-muted">
+                        {order.createdAt}
+                      </p>
+                    </div>
                   </div>
                 </td>
 
-                <td className="px-5 py-6 font-bold whitespace-nowrap">
-                  {formatNumber(order.amount)}
-                  <span className="mr-1 text-xs font-normal">تومان</span>
+                <td className="col-span-2 row-start-2 mt-4 min-w-0 border-t border-border pt-4 md:mt-0 md:max-w-80 md:border-0 md:px-5 md:py-6">
+                  <div className="mb-3 flex items-center justify-between md:hidden">
+                    <span className="text-xs font-semibold text-text-muted">
+                      دوره‌های خریداری شده
+                    </span>
+
+                    <span className="rounded-md bg-box px-2 py-1 text-[10px] font-bold text-primary">
+                      {order.items.length} دوره
+                    </span>
+                  </div>
+
+                  <ul className="space-y-3">
+                    {order.items.map((item) => (
+                      <li
+                        key={item.id}
+                        className="flex min-w-0 items-start gap-2.5"
+                      >
+                        <BookOpen
+                          size={15}
+                          className="mt-1 shrink-0 text-primary"
+                        />
+
+                        <span className="min-w-0 wrap-break-word text-xs leading-6 text-text-secondary">
+                          {item.course.title}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </td>
 
-                <td className="px-5 py-6">
-                  <OrderStatus status={order.status} />
+                <td className="col-span-2 row-start-3 mt-4 flex items-center justify-between gap-2 border-t border-border pt-4 md:table-cell md:mt-0 md:border-0 md:px-5 md:py-6">
+                  <span className="text-xs font-medium text-text-muted md:hidden">
+                    مبلغ سفارش
+                  </span>
+
+                  <div className="flex items-center gap-1 whitespace-nowrap">
+                    <span className="text-sm font-extrabold text-text-primary">
+                      {Number(order.totalAmount).toLocaleString("fa-IR")}
+                    </span>
+
+                    <span className="text-[11px] text-text-muted">تومان</span>
+                  </div>
+                </td>
+
+                <td className="col-start-2 row-start-1 self-center md:px-5 md:py-6">
+                  <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-success/10 px-2.5 py-2 text-[10px] font-bold text-success">
+                    <CircleCheck size={14} className="shrink-0" />
+                    پرداخت شده
+                  </span>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-
-      {/* Mobile Cards */}
-      <div className="space-y-4 md:hidden">
-        {panelOrders.map((order) => (
-          <article
-            key={order.id}
-            className="rounded-2xl border border-border bg-white p-5"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p dir="ltr" className="font-bold">
-                  {order.id}
-                </p>
-
-                <p className="mt-2 text-xs text-text-muted">{order.date}</p>
-              </div>
-
-              <OrderStatus status={order.status} />
-            </div>
-
-            <div className="my-5 h-px bg-border" />
-
-            <div className="space-y-2">
-              {order.courses.map((course) => (
-                <p key={course} className="text-sm text-text-secondary">
-                  {course}
-                </p>
-              ))}
-            </div>
-
-            <div className="mt-6 flex items-center justify-between">
-              <span className="text-xs text-text-muted">مبلغ سفارش</span>
-
-              <span className="font-extrabold text-primary">
-                {formatNumber(order.amount)} تومان
-              </span>
-            </div>
-          </article>
-        ))}
       </div>
     </div>
   );

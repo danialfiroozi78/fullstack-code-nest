@@ -3,24 +3,37 @@
 import Link from "next/link";
 import {
   ArrowLeft,
+  Check,
   CircleAlert,
-  CircleCheck,
   Clock3,
+  ReceiptText,
+  ShoppingBag,
+  ShoppingCart,
   Sparkles,
+  SquarePen,
   TrendingUp,
+  UserRound,
 } from "lucide-react";
 import useDashboard from "@/hooks/useDashboard";
+import { Button } from "@/components/common/Button";
+import DashboardSkeleton from "@/components/panel/loading/DashboardSkeleton";
 
 export default function PanelDashboardPage() {
-  const { dashboardData, stats } = useDashboard();
-  const fieldLabels: Record<string, string> = {
-    firstName: "نام",
-    lastName: "نام خانوادگی",
-    phoneNumber: "شماره موبایل",
-    userName: "نام کاربری",
-    email: "آدرس ایمیل",
-    birthday: "تاریخ تولد",
-  };
+  const {
+    dashboardData,
+    stats,
+    fieldLabels,
+    percentage,
+    isCompleted,
+    profileFields,
+    completedFields,
+    totalFields,
+    orderStatuses,
+    recentOrders,
+    dashboardLoading,
+  } = useDashboard();
+
+  if (dashboardLoading) return <DashboardSkeleton />;
 
   return (
     <div className="space-y-7">
@@ -82,36 +95,231 @@ export default function PanelDashboardPage() {
       {/* Current Courses */}
       <section>
         <div className="grid gap-5 md:grid-cols-2 mt-6">
-          <div className="rounded-xl p-4 bg-white border border-border">
-            <h2 className="mb-1 text-text-primary font-bold text-lg">
-              وضعیت پروفایل
-            </h2>
-            <small className="text-text-secondary">
-              اطلاعات حساب کاربری شما هنوز کامل نیست.
-            </small>
+          <div className="rounded-xl p-5 bg-white border border-border">
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-5">
+              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <UserRound className="size-6 text-primary" />
+              </div>
 
-            <div className="flex flex-col gap-3 mt-6">
-              {Object.entries(dashboardData?.data?.user ?? []).map(
-                ([key, value]) => (
-                  <div className="flex items-center">
-                    <div>
-                      {value === null ? (
-                        <CircleAlert className="size-4 text-white bg-gray-400 rounded-full" />
-                      ) : (
-                        <CircleCheck className="size-4 text-white bg-success rounded-full" />
-                      )}
-                    </div>
-                    <span className="ml-1 mr-2">{fieldLabels[key]}:</span>
-                    <span>{[value]}</span>
-                  </div>
-                ),
-              )}
+              <div>
+                <h2 className="mb-1 text-text-primary font-bold text-lg">
+                  وضعیت پروفایل
+                </h2>
+
+                <p className="text-xs text-text-secondary">
+                  {percentage === 100
+                    ? "اطلاعات حساب کاربری شما کامل است."
+                    : "اطلاعات حساب کاربری خود را تکمیل کنید."}
+                </p>
+              </div>
             </div>
+
+            {/* Progress */}
+            <div className="rounded-xl bg-gray-50 p-4 mb-5">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm font-medium text-text-primary">
+                  میزان تکمیل پروفایل
+                </span>
+
+                <span className="text-primary font-bold text-xl">
+                  {percentage.toLocaleString("fa-IR")}٪
+                </span>
+              </div>
+
+              <div
+                role="progressbar"
+                aria-label="میزان تکمیل پروفایل"
+                aria-valuenow={percentage}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                className="h-2 w-full bg-gray-200 rounded-full overflow-hidden"
+              >
+                <div
+                  className="h-full bg-primary rounded-full transition-all duration-500"
+                  style={{ width: `${percentage}%` }}
+                />
+              </div>
+
+              <p className="mt-3 text-xs text-text-secondary">
+                {completedFields.toLocaleString("fa-IR")} مورد از{" "}
+                {totalFields.toLocaleString("fa-IR")} مورد تکمیل شده است.
+              </p>
+            </div>
+
+            {/* Profile Fields */}
+            <div className="divide-y divide-border">
+              {profileFields.map(([key, value]) => {
+                const completed = isCompleted(value);
+
+                return (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between gap-3 py-3"
+                  >
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div
+                        className={`size-8 rounded-lg flex items-center justify-center ${
+                          completed
+                            ? "bg-success/10 text-success"
+                            : "bg-gray-100 text-gray-400"
+                        }`}
+                      >
+                        {completed ? (
+                          <Check className="size-4" />
+                        ) : (
+                          <CircleAlert className="size-4" />
+                        )}
+                      </div>
+
+                      <span className="text-sm text-text-secondary">
+                        {fieldLabels[key] ?? key}
+                      </span>
+                    </div>
+
+                    <span
+                      className={`text-sm truncate ${
+                        completed
+                          ? "text-text-primary font-medium"
+                          : "text-gray-400 text-xs"
+                      }`}
+                    >
+                      {completed ? String(value) : "تکمیل نشده"}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Edit Profile */}
+            <Link
+              href="/profile/settings"
+              className="mt-5 flex items-center justify-center gap-2 w-full rounded-xl bg-primary hover:bg-primary/90 transition-colors py-3 text-white text-sm font-semibold"
+            >
+              <SquarePen className="size-4" />
+
+              {percentage === 100
+                ? "ویرایش اطلاعات پروفایل"
+                : "تکمیل اطلاعات پروفایل"}
+
+              <ArrowLeft className="size-4" />
+            </Link>
           </div>
-          <div className="rounded-xl p-4 bg-white border border-border">
-            <h2 className="mb-1 text-text-primary font-bold text-lg">
-              آخرین سفارشات
-            </h2>
+          <div className="rounded-xl p-5 bg-white border border-border flex flex-col justify-between">
+            {/* Header */}
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <ReceiptText className="size-6 text-primary" />
+                </div>
+
+                <div>
+                  <h2 className="mb-1 text-text-primary font-bold text-lg">
+                    آخرین سفارش‌ها
+                  </h2>
+
+                  <p className="text-xs text-text-secondary">
+                    مشاهده و پیگیری خریدهای اخیر شما
+                  </p>
+                </div>
+              </div>
+
+              {/* Orders */}
+              <div className="flex flex-col gap-3">
+                {recentOrders.length > 0 ? (
+                  recentOrders.slice(0, 3).map((order) => {
+                    const status = orderStatuses[order.status] ?? {
+                      label: "نامشخص",
+                      className: "bg-gray-100 text-gray-500",
+                    };
+
+                    return (
+                      <div
+                        key={order.id}
+                        className="rounded-xl border border-border p-3 hover:border-primary/30 transition-colors"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-3">
+                            <div className="size-10 shrink-0 rounded-lg bg-gray-100 flex items-center justify-center">
+                              <ShoppingBag className="size-5 text-text-secondary" />
+                            </div>
+
+                            <div>
+                              <h3 className="text-sm font-bold text-text-primary">
+                                سفارش #{order.id}
+                              </h3>
+
+                              <span className="text-xs text-text-secondary">
+                                {order.createdAt}
+                              </span>
+                            </div>
+                          </div>
+
+                          <span
+                            className={`text-[10px] font-medium px-2.5 py-1.5 rounded-md whitespace-nowrap ${status.className}`}
+                          >
+                            {status.label}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center justify-between border-t border-border mt-3 pt-3">
+                          <div className="flex items-center gap-1">
+                            <span className="text-base font-bold text-text-primary">
+                              {Number(order.totalAmount).toLocaleString(
+                                "fa-IR",
+                              )}
+                            </span>
+
+                            <span className="text-[10px] text-text-secondary">
+                              تومان
+                            </span>
+                          </div>
+
+                          <Link href={`/profile/orders/${order.id}`}>
+                            <Button fullWidth variant="ghost" size="sm">
+                              جزئیات سفارش
+                              <ArrowLeft className="size-3.5" />
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  /* Empty State */
+                  <div className="flex flex-col items-center justify-center py-10 text-center">
+                    <div className="size-16 rounded-2xl bg-primary/5 flex items-center justify-center mb-4">
+                      <ShoppingCart className="size-7 text-primary" />
+                    </div>
+
+                    <h3 className="text-sm font-bold text-text-primary mb-2">
+                      هنوز سفارشی ثبت نکرده‌اید
+                    </h3>
+
+                    <p className="text-xs text-text-secondary mb-4">
+                      اولین دوره آموزشی خود را از کدنست تهیه کنید.
+                    </p>
+
+                    <Link href="/courses">
+                      <Button fullWidth variant="outline">
+                        مشاهده دوره‌ها
+                        <ArrowLeft className="size-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Footer */}
+            {recentOrders.length > 0 && (
+              <Link href="/profile/orders" className="mt-5 block">
+                <Button fullWidth variant="outline">
+                  مشاهده همه سفارش‌ها
+                  <ArrowLeft className="size-4" />
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </section>

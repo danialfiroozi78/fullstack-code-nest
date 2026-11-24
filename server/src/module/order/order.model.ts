@@ -7,6 +7,7 @@ export type OrderInstance = Model & {
   userId: number;
   totalAmount: number;
   status: "pending" | "completed";
+  createdAt: string;
 };
 
 export const OrderModel = sequelize.define<OrderInstance>(

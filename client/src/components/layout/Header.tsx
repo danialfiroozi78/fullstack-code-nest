@@ -51,7 +51,7 @@ export default async function Header() {
 
         <HeaderButtons token={token} />
 
-        <MobileMenu links={navLinks} />
+        <MobileMenu token={token} links={navLinks} />
       </div>
     </header>
   );

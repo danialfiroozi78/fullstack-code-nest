@@ -6,7 +6,7 @@ import ReduxProvider from "@/components/ReduxProvider";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "GameHub | دانلود بازی کامپیوتر",
+  title: "CodeNest | دانلود بازی کامپیوتر",
   description: "دانلود جدیدترین بازی‌های کامپیوتری",
 };
 

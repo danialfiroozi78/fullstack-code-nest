@@ -8,7 +8,9 @@ export default function CartContent({
 }: {
   isAuthorized: boolean;
 }) {
-  const { data } = useGetCartQuery(null);
+  const { data } = useGetCartQuery(null, {
+    skip: !isAuthorized,
+  });
 
   return (
     <>

@@ -6,7 +6,9 @@ import { Button } from "@/components/common/Button";
 import { ShoppingCart, UserRound } from "lucide-react";
 
 export default function HeaderButtons({ token }: { token: boolean }) {
-  const { data: cartData } = useGetCartQuery(null);
+  const { data: cartData } = useGetCartQuery(null, {
+    skip: !token,
+  });
 
   return (
     <div className="hidden items-center gap-2 lg:flex">

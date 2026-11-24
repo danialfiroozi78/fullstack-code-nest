@@ -10,18 +10,20 @@ type NavLink = {
   href: string;
 };
 
-export default function MobileMenu({ links }: { links: NavLink[] }) {
+export default function MobileMenu({
+  links,
+  token,
+}: {
+  links: NavLink[];
+  token: boolean;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="lg:hidden">
       <button
-        type="button"
         onClick={() => setOpen((prev) => !prev)}
-        aria-label={open ? "بستن منو" : "باز کردن منو"}
-        aria-expanded={open}
-        aria-controls="mobile-menu"
-        className="flex size-10 items-center justify-center rounded-xl border border-border bg-white text-text-primary"
+        className="cursor-pointer flex size-10 items-center justify-center rounded-xl border border-border bg-white text-text-primary"
       >
         {open ? <X size={22} /> : <Menu size={22} />}
       </button>
@@ -45,28 +47,25 @@ export default function MobileMenu({ links }: { links: NavLink[] }) {
 
             <div className="my-3 h-px bg-border" />
 
-            {/*<Link*/}
-            {/*  href="/search"*/}
-            {/*  onClick={() => setOpen(false)}*/}
-            {/*  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-text-secondary"*/}
-            {/*>*/}
-            {/*  <Search size={18} />*/}
-            {/*  جستجوی دوره*/}
-            {/*</Link>*/}
+            <div className="flex items-center gap-4">
+              <Link
+                className="w-full"
+                href="/cart"
+                onClick={() => setOpen(false)}
+              >
+                <Button variant="secondary" fullWidth>
+                  <ShoppingCart size={18} />
+                  سبد خرید
+                </Button>
+              </Link>
 
-            <Link href="/cart" onClick={() => setOpen(false)}>
-              <Button>
-                <ShoppingCart size={18} />
-                سبد خرید
-              </Button>
-            </Link>
-
-            <Link href="/auth" onClick={() => setOpen(false)} className="mt-3">
-              <Button>
-                <UserRound size={18} />
-                ورود / ثبت‌نام
-              </Button>
-            </Link>
+              <Link className="w-full" href={token ? "panel" : "/auth"}>
+                <Button fullWidth>
+                  <UserRound size={20} />
+                  {token ? "پنل کاربری" : "ورود | ثبت نام"}
+                </Button>
+              </Link>
+            </div>
           </div>
         </nav>
       )}

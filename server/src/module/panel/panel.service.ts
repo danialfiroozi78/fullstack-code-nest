@@ -3,17 +3,19 @@ import { UserModel } from "../user/user.model";
 import { UserCourseModel } from "../userCourse/userCourse.model";
 import { OrderModel } from "../order/order.model";
 import createHttpError from "http-errors";
+import { CourseModel } from "../course/course.model";
+import { CategoryModel } from "../category/category.model";
+import { InstructorModel } from "../instructor/instructor.model";
+import { OrderItemModel } from "../orderItem/orderItem.model";
 
 export const getProfileService = async (userId: number) => {
-  const user = await UserModel.findByPk(userId, {
+  return await UserModel.findByPk(userId, {
     include: {
       model: UserProfileModel,
       as: "profile",
       required: false,
     },
   });
-
-  return user;
 };
 
 export const getDashboardService = async (userId: number) => {
@@ -54,10 +56,103 @@ export const getDashboardService = async (userId: number) => {
     birthday: data.profile?.birthday ?? null,
   };
 
+  const recentOrders = (
+    await OrderModel.findAll({
+      where: { userId },
+      attributes: ["id", "totalAmount", "status", "createdAt"],
+      order: [["createdAt", "DESC"]],
+      limit: 3,
+      raw: true,
+    })
+  ).map((item) => ({
+    ...item,
+    createdAt: new Intl.DateTimeFormat("fa-IR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date(item.createdAt)),
+  }));
+
   return {
     user: fields,
     courseCount,
     orderCount,
     totalAmounts,
+    recentOrders,
   };
+};
+
+export const getMyCourseService = async (userId: number) => {
+  const userCourses = await UserCourseModel.findAll({
+    where: { userId },
+    attributes: [],
+    include: {
+      model: CourseModel,
+      as: "course",
+      attributes: [
+        "id",
+        "title",
+        "thumbnailImage",
+        "duration",
+        "lessons",
+        "slug",
+      ],
+      include: [
+        {
+          model: CategoryModel,
+          as: "category",
+          attributes: {
+            exclude: ["slug"],
+          },
+        },
+        {
+          model: InstructorModel,
+          as: "instructor",
+          attributes: {
+            exclude: ["description"],
+          },
+        },
+      ],
+    },
+  });
+
+  return userCourses.map((item) => item.get("course"));
+};
+
+export const getMyOrdersService = async (userId: number) => {
+  const orders = await OrderModel.findAll({
+    where: { userId },
+    attributes: {
+      exclude: ["userId"],
+    },
+    include: [
+      {
+        model: OrderItemModel,
+        as: "items",
+        attributes: {
+          exclude: ["courseId", "orderId"],
+        },
+        include: {
+          model: CourseModel,
+          as: "course",
+          attributes: ["id", "title"],
+        },
+      },
+    ],
+    order: [["createdAt", "DESC"]],
+  });
+
+  return orders.map((item) => {
+    const order = item.toJSON();
+
+    return {
+      ...order,
+      createdAt: new Intl.DateTimeFormat("fa-IR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        timeZone: "Asia/Tehran",
+      }).format(new Date(order.createdAt)),
+    };
+  });
 };

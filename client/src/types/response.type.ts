@@ -166,4 +166,54 @@ export type GetDashboardResType = {
   courseCount: number;
   orderCount: number;
   totalAmounts: number;
+  recentOrders: {
+    id: number;
+    totalAmount: number;
+    status: string;
+    createdAt: string;
+  }[];
+};
+
+export type GetMyCourseResType = {
+  id: number;
+  title: string;
+  slug: string;
+  thumbnailImage: string;
+  duration: number;
+  lessons: number;
+  category: {
+    id: number;
+    name: string;
+  };
+  instructor: {
+    id: number;
+    name: string;
+  };
+}[];
+
+export type GetMyOrdersResType = {
+  id: number;
+  totalAmount: number;
+  status: string;
+  createdAt: string;
+  items: [
+    {
+      id: number;
+      price: number;
+      discountAmount: number;
+      finalPrice: number;
+      course: {
+        id: number;
+        title: string;
+      };
+    },
+  ];
+}[];
+
+export type ProfileResType = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  profile: object | null;
 };

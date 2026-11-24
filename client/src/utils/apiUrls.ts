@@ -3,6 +3,7 @@ export const apiUrls = {
     sendOtp: "auth/send-otp",
     verifyOtp: "auth/verify-otp",
     completeRegistration: "auth/complete-registration",
+    logout: "auth/logout",
   },
   roadmaps: {
     index: "roadmap/",
@@ -26,5 +27,7 @@ export const apiUrls = {
   panel: {
     profile: "/panel/profile",
     dashboard: "/panel/dashboard",
+    myCourse: "/panel/my-course",
+    myOrder: "/panel/my-order",
   },
 };

@@ -31,14 +31,19 @@ export const AuthMutation = BaseApi.injectEndpoints({
           data,
         }),
       }),
-      // logout: build.mutation<ApiRes, null>({
-      //   query: () => ({
-      //     method: "POST",
-      //     url: apiUrls.logout,
-      //   }),
-      // }),
+      logout: build.mutation<ApiRes, null>({
+        query: () => ({
+          method: "POST",
+          url: apiUrls.auth.logout,
+        }),
+      }),
     };
   },
 });
 
-export const { useSendOtpMutation, useVerifyOtpMutation, useSignUpMutation } = AuthMutation;
+export const {
+  useSendOtpMutation,
+  useVerifyOtpMutation,
+  useSignUpMutation,
+  useLogoutMutation,
+} = AuthMutation;
