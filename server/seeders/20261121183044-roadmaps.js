@@ -58,7 +58,7 @@ module.exports = {
       });
 
       // 6. Insert roadmap steps
-      await queryInterface.bulkInsert("roadmap_step", stepsData, {
+      await queryInterface.bulkInsert("roadmapStep", stepsData, {
         transaction,
       });
     });
@@ -78,7 +78,7 @@ module.exports = {
       );
 
       await queryInterface.bulkDelete(
-        "roadmap_step",
+        "roadmapStep",
         {
           roadmapId: {
             [Sequelize.Op.in]: insertedRoadmaps.map((roadmap) => roadmap.id),
