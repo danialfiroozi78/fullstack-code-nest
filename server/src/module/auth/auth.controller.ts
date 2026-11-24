@@ -126,9 +126,10 @@ export const completeRegistrationController = async (
 export const logoutController = async (req: Request, res: Response) => {
   res.clearCookie("access_token", {
     httpOnly: true,
-    secure: isProduction,
+    secure: process.env.COOKIE_SECURE === "true",
     sameSite: "lax",
     path: "/",
+    domain: process.env.COOKIE_DOMAIN || undefined,
   });
 
   return res.status(200).json({

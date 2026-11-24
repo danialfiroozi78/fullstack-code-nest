@@ -4,9 +4,10 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const cookieOptions = {
   httpOnly: true,
-  secure: isProduction,
+  secure: process.env.COOKIE_SECURE === "true",
   sameSite: "lax" as const,
   path: "/",
+  domain: process.env.COOKIE_DOMAIN || undefined,
 };
 
 export const setAuthCookie = (res: Response, token: string) => {
