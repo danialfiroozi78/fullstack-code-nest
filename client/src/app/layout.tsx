@@ -7,8 +7,9 @@ import { Toaster } from "react-hot-toast";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "CodeNest | دانلود بازی کامپیوتر",
-  description: "دانلود جدیدترین بازی‌های کامپیوتری",
+  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
+  description:
+    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

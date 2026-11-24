@@ -12,6 +12,12 @@ import {
 } from "lucide-react";
 import { getRoadmapBySlug } from "@/services/roadmap.service";
 
+export const metadata: Metadata = {
+  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
+  description:
+    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
+};
+
 type Props = {
   params: Promise<{ slug: string }>;
 };

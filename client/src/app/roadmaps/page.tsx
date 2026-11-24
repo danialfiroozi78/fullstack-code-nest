@@ -17,11 +17,10 @@ import { getRoadmaps } from "@/services/roadmap.service";
 import RoadmapHeroSection from "@/components/roadmap";
 
 export const metadata: Metadata = {
-  title: "مسیرهای یادگیری",
+  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
   description:
-    "مسیرهای یادگیری برنامه‌نویسی CodeNest را بررسی کنید و مسیر مناسب خود را انتخاب کنید.",
+    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
 };
-
 const icons = {
   monitor: Monitor,
   server: Server,
@@ -89,7 +88,7 @@ export default async function RoadmapsPage() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {roadmaps?.data?.map((roadmap) => {
             const Icon = icons[roadmap.icon as keyof typeof icons];
 

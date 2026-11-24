@@ -28,7 +28,7 @@ export default function OrderSummary({
         title="سفارش شما با موفقیت ثبت شد!"
         description="دوره‌های خریداری‌شده به حساب کاربری شما اضافه شدند و از همین حالا می‌توانید یادگیری را شروع کنید."
         footer={
-          <Link className="w-full" href="/profile/my-courses">
+          <Link className="w-full" href="/panel/courses">
             <Button fullWidth>مشاهده دوره‌های من</Button>
           </Link>
         }

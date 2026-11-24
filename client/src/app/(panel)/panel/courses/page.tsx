@@ -5,6 +5,7 @@ import { BookOpen, GraduationCap } from "lucide-react";
 import CourseCard from "@/components/panel/CourseCard";
 import useMyCourse from "@/hooks/useMyCourse";
 import MyCoursesSkeleton from "@/components/panel/loading/MyCoursesSkeleton";
+import EmptyState from "@/components/common/EmptyState";
 
 export default function MyCoursesPage() {
   const { data, isLoading } = useMyCourse();
@@ -29,21 +30,35 @@ export default function MyCoursesPage() {
         </p>
       </div>
 
-      <div className="mb-5 flex min-w-0 items-center justify-between gap-3 rounded-2xl border border-border bg-white px-4 py-4 sm:mb-7 sm:px-5">
-        <div className="flex items-center gap-2 text-sm font-semibold">
-          <BookOpen size={19} className="shrink-0 text-primary" />
-          همه دوره‌ها
-        </div>
+      {data?.data?.length ? (
+        <div className="mb-5 flex min-w-0 items-center justify-between gap-3 rounded-2xl border border-border bg-white px-4 py-4 sm:mb-7 sm:px-5">
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <BookOpen size={19} className="shrink-0 text-primary" />
+            همه دوره‌ها
+          </div>
 
-        <span className="shrink-0 rounded-full bg-box px-3 py-1.5 text-xs font-bold text-primary">
-          {data?.data?.length ?? 0} دوره
-        </span>
-      </div>
+          <span className="shrink-0 rounded-full bg-box px-3 py-1.5 text-xs font-bold text-primary">
+            {data?.data?.length ?? 0} دوره
+          </span>
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="grid w-full min-w-0 grid-cols-1 gap-5 md:grid-cols-2 2xl:grid-cols-3">
-        {data?.data?.map((course) => (
-          <CourseCard key={course.id} course={course} />
-        ))}
+        {data?.data?.length ? (
+          data?.data?.map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))
+        ) : (
+          <EmptyState
+            icon={GraduationCap}
+            title="هنوز دوره‌ای خریداری نکرده‌اید"
+            description="مسیر یادگیری شما از اینجا شروع می‌شود. دوره مورد علاقه‌تان را پیدا کنید و اولین قدم را برای پیشرفت بردارید."
+            actionLabel="مشاهده دوره‌ها"
+            actionHref="/courses"
+          />
+        )}
       </div>
     </div>
   );

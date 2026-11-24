@@ -12,9 +12,9 @@ import {
 import ContactForm from "@/components/contact/CatactForm";
 
 export const metadata: Metadata = {
-  title: "تماس با ما",
+  title: "کدنست | آموزش تخصصی برنامه‌نویسی",
   description:
-    "برای ارسال سوال، پیشنهاد یا درخواست پشتیبانی با CodeNest در ارتباط باشید.",
+    "کدنست، پلتفرم آموزش تخصصی برنامه‌نویسی با دوره‌های پروژه‌محور فرانت‌اند، بک‌اند، توسعه وب و مسیرهای یادگیری برای ورود به بازار کار.",
 };
 
 const channels = [

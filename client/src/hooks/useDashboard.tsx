@@ -22,7 +22,7 @@ export default function useDashboard() {
     },
     {
       label: "مجموع خریدها",
-      value: dashboardData?.data?.totalAmounts,
+      value: dashboardData?.data?.totalAmounts || 0,
       icon: CheckCircle2,
       description: "دوره‌های به پایان رسیده",
     },

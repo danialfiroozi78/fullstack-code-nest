@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export default function RoadmapHeroSection() {
   return (
-    <section className="relative overflow-hidden bg-footer py-20 text-white lg:py-28">
+    <section className="relative overflow-hidden bg-footer py-20 text-white lg:py-22">
       <div className="pointer-events-none absolute -top-32 -left-32 size-96 rounded-full bg-primary/20 blur-3xl" />
 
       <div className="pointer-events-none absolute -bottom-40 right-0 size-96 rounded-full bg-primary/10 blur-3xl" />
