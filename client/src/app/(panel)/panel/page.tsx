@@ -193,7 +193,7 @@ export default function PanelDashboardPage() {
 
             {/* Edit Profile */}
             <Link
-              href="/profile/settings"
+              href="/panel"
               className="mt-5 flex items-center justify-center gap-2 w-full rounded-xl bg-primary hover:bg-primary/90 transition-colors py-3 text-white text-sm font-semibold"
             >
               <SquarePen className="size-4" />
@@ -275,7 +275,7 @@ export default function PanelDashboardPage() {
                             </span>
                           </div>
 
-                          <Link href={`/profile/orders/${order.id}`}>
+                          <Link href={`/panel/orders`}>
                             <Button fullWidth variant="ghost" size="sm">
                               جزئیات سفارش
                               <ArrowLeft className="size-3.5" />
