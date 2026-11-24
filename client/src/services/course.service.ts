@@ -27,3 +27,11 @@ export const getCourseDetails = async (slug: string) => {
 
   return data;
 };
+
+export const getNewestCourse = async () => {
+  const { data } = await axiosInstance.get<ApiRes<CoursesResType>>(
+    apiUrls.courses.newest,
+  );
+
+  return data;
+};

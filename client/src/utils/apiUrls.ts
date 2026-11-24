@@ -14,6 +14,7 @@ export const apiUrls = {
   courses: {
     index: "course",
     details: "course/",
+    newest: "course/newest",
   },
   cart: {
     index: "cart",

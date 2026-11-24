@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Code2, Send, Mail, ArrowUpLeft } from "lucide-react";
+import Image from "next/image";
+import icon from "lucide-react/icons/*";
 
 const footerLinks = [
   {
@@ -8,15 +10,15 @@ const footerLinks = [
       { title: "صفحه اصلی", href: "/" },
       { title: "دوره‌های آموزشی", href: "/courses" },
       { title: "مسیرهای یادگیری", href: "/roadmaps" },
-      { title: "مقالات آموزشی", href: "/articles" },
+      { title: "مقالات آموزشی", href: "http://blogify.danialfiroozi.ir/" },
     ],
   },
   {
     title: "آکادمی CodeNest",
     items: [
-      { title: "درباره ما", href: "/about" },
+      { title: "درباره ما", href: "/about-us" },
       { title: "مدرسین", href: "/instructors" },
-      { title: "تماس با ما", href: "/contact" },
+      { title: "تماس با ما", href: "/contact-us" },
       { title: "همکاری با ما", href: "/collaboration" },
     ],
   },
@@ -60,17 +62,23 @@ export default function Footer() {
 
             <div className="mt-6 flex items-center gap-3">
               {[
-                { icon: Send, label: "تلگرام" },
-                { icon: Send, label: "تلگرام" },
-                { icon: Send, label: "تلگرام" },
-              ].map(({ icon: Icon, label }) => (
+                { src: "/images/telegram.svg", label: "تلگرام" },
+                { src: "/images/linkedin.svg", label: "لینکدین" },
+                { src: "/images/instagram.svg", label: "اینستاگرام" },
+              ].map(({ src, label }) => (
                 <span
                   key={label}
                   aria-label={label}
                   title={label}
                   className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-300"
                 >
-                  <Icon size={19} />
+                  <Image
+                    src={src}
+                    width={20}
+                    height={20}
+                    alt={label}
+                    unoptimized
+                  />
                 </span>
               ))}
             </div>

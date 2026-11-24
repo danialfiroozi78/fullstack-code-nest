@@ -2,7 +2,6 @@ import { CourseModel } from "./course.model";
 import { CategoryModel } from "../category/category.model";
 import { InstructorModel } from "../instructor/instructor.model";
 import { Op, Order } from "@sequelize/core";
-import { async } from "rxjs";
 import { CourseDetailModel } from "../courseDetail/courseDetail.model";
 import { CourseSectionModel } from "../courseSection/courseSection.model";
 import { CourseLessonModel } from "../courseLesson/courseLesson.model";
@@ -109,4 +108,36 @@ export const getCourseDetailsService = async (slug: string) => {
   if (!details) throw createHttpError.NotFound("دوره مورد نظر یافت نشد!");
 
   return details;
+};
+
+export const getNewestCourseService = async () => {
+  const courses = await CourseModel.findAll({
+    attributes: {
+      exclude: ["categoryId", "instructorId"],
+    },
+    include: [
+      {
+        model: CategoryModel,
+        as: "category",
+      },
+      {
+        model: InstructorModel,
+        as: "instructor",
+      },
+    ],
+    order: [["publishedAt", "DESC"]],
+    limit: 4,
+  });
+
+  return courses?.map((course) => {
+    const coursesPlained = course.get({ plain: true });
+    return {
+      ...coursesPlained,
+      publishedAt: new Intl.DateTimeFormat("fa-IR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).format(new Date(coursesPlained.publishedAt)),
+    };
+  });
 };

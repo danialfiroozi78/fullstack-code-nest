@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
-  ArrowUpLeft,
   BookOpen,
   Clock3,
   Cloud,
@@ -10,12 +9,12 @@ import {
   Compass,
   Layers3,
   Monitor,
-  Route,
   Server,
   Sparkles,
   Target,
 } from "lucide-react";
 import { getRoadmaps } from "@/services/roadmap.service";
+import RoadmapHeroSection from "@/components/roadmap";
 
 export const metadata: Metadata = {
   title: "مسیرهای یادگیری",
@@ -35,53 +34,8 @@ export default async function RoadmapsPage() {
 
   return (
     <div className="overflow-hidden">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-footer py-24 text-white lg:py-32">
-        <div className="absolute -top-32 -left-32 size-96 rounded-full bg-primary/20 blur-3xl" />
-        <div className="absolute -bottom-40 right-0 size-96 rounded-full bg-primary/10 blur-3xl" />
+      <RoadmapHeroSection />
 
-        <div className="relative mx-auto max-w-7xl px-4 lg:px-6">
-          <div className="max-w-3xl">
-            <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-rose-200">
-              <Route size={17} />
-              نقشه راه یادگیری برنامه‌نویسی
-            </span>
-
-            <h1 className="text-4xl leading-[1.7] font-extrabold sm:text-5xl lg:text-[54px]">
-              مسیر برنامه‌نویسی
-              <br />
-              خودت رو
-              <span className="text-rose-400"> پیدا کن.</span>
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-sm leading-9 text-zinc-300 sm:text-base">
-              نمی‌دونی از کجا شروع کنی یا بعد از یادگیری یک تکنولوژی باید سراغ
-              چی بری؟ مسیرهای یادگیری CodeNest بهت کمک می‌کنن قدم‌به‌قدم پیش
-              بری.
-            </p>
-
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link
-                href="#roadmap-list"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-primary-hover"
-              >
-                کشف مسیرهای یادگیری
-                <ArrowLeft size={18} />
-              </Link>
-
-              <Link
-                href="/contact-us"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10"
-              >
-                راهنمایی برای انتخاب مسیر
-                <ArrowUpLeft size={18} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits */}
       <section className="mx-auto grid max-w-7xl gap-5 px-4 py-12 md:grid-cols-3 lg:px-6">
         {[
           {
@@ -201,7 +155,6 @@ export default async function RoadmapsPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 pb-8 lg:px-6">
         <div className="rounded-3xl bg-box p-8 text-center sm:p-12">
           <Sparkles size={35} className="mx-auto text-primary" />

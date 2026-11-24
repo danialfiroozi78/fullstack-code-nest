@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
-  ArrowUpLeft,
   BookOpen,
   CheckCircle2,
   Code2,
@@ -11,10 +10,10 @@ import {
   HeartHandshake,
   Lightbulb,
   Rocket,
-  Sparkles,
   Target,
   Users,
 } from "lucide-react";
+import AboutUsHeroSection from "@/components/aboutUs/AboutUsHeroSection";
 
 export const metadata: Metadata = {
   title: "درباره ما",
@@ -80,53 +79,8 @@ const journey = [
 export default function AboutPage() {
   return (
     <div className="overflow-hidden">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-footer py-24 text-white lg:py-32">
-        <div className="absolute -top-40 -left-40 size-112.5 rounded-full bg-primary/20 blur-[110px]" />
-        <div className="absolute -bottom-52 right-0 size-112.5 rounded-full bg-primary/10 blur-[120px]" />
+      <AboutUsHeroSection />
 
-        <div className="relative mx-auto max-w-7xl px-4 lg:px-6">
-          <div className="max-w-3xl">
-            <span className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-rose-200">
-              <Sparkles size={16} />
-              بیشتر با CodeNest آشنا شو
-            </span>
-
-            <h1 className="text-4xl leading-[1.8] font-extrabold sm:text-5xl lg:text-[54px]">
-              اینجا فقط کدنویسی
-              <br />
-              یاد نمی‌گیری؛
-              <span className="text-rose-400"> آینده‌ات رو می‌سازی.</span>
-            </h1>
-
-            <p className="mt-7 max-w-2xl text-sm leading-9 text-zinc-300 sm:text-base">
-              CodeNest با هدف ساده‌تر و کاربردی‌تر کردن یادگیری برنامه‌نویسی شکل
-              گرفته. ما باور داریم بهترین راه یادگیری، تمرین کردن، اشتباه کردن و
-              ساختن پروژه‌های واقعیه.
-            </p>
-
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link
-                href="/courses"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-primary-hover"
-              >
-                مشاهده دوره‌ها
-                <ArrowLeft size={18} />
-              </Link>
-
-              <Link
-                href="/contact-us"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                ارتباط با ما
-                <ArrowUpLeft size={18} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Introduction */}
       <section className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-24 lg:grid-cols-2 lg:px-6">
         <div>
           <span className="text-sm font-bold text-primary">داستان ما</span>
@@ -229,7 +183,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
       <section className="border-y border-border bg-white py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-6">
           <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -260,7 +213,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Learning journey */}
       <section className="mx-auto max-w-7xl px-4 py-24 lg:px-6">
         <div className="mb-12">
           <span className="text-sm font-bold text-primary">مسیر رشد</span>
@@ -292,8 +244,6 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-
-      {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 pb-8 lg:px-6">
         <div className="relative overflow-hidden rounded-3xl bg-primary px-7 py-14 text-center text-white sm:px-12">
           <div className="absolute -top-24 -left-20 size-64 rounded-full bg-white/10 blur-2xl" />

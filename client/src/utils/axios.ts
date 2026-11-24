@@ -15,7 +15,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     const messages = error.response?.data?.message;
 
-    if (messages) {
+    if (typeof window !== "undefined" && messages) {
       if (Array.isArray(messages)) {
         messages.forEach((message: string) => {
           toast.error(message);
