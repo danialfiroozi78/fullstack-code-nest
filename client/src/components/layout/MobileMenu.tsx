@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, ShoppingCart, UserRound } from "lucide-react";
 import { Button } from "@/components/common/Button";
+import { usePathname } from "next/navigation";
 
 type NavLink = {
   title: string;
@@ -18,6 +19,14 @@ export default function MobileMenu({
   token: boolean;
 }) {
   const [open, setOpen] = useState(false);
+
+  const pathname = usePathname();
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setOpen(false);
+  }
 
   return (
     <div className="lg:hidden">
